@@ -146,7 +146,8 @@ public class ServerSongPlayer implements NoteReceiver {
                         SoundCategory.RECORDS,
                         player.getPos(),
                         Math.min(volume, 0.9f),
-                        note.pitch()
+                        note.pitch(),
+                        player.getWorld().getRandom().nextLong()
                 ));
                 volume -= 0.9f;
             }
