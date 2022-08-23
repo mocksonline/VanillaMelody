@@ -8,7 +8,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.network.packet.s2c.play.PlaySoundIdS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.text.Style;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
@@ -130,8 +130,7 @@ public class ServerSongPlayer implements NoteReceiver {
         final PlayList.SongInfo info = this.playing;
         if (info == null) return;
         player.sendMessage(
-                new LiteralText("Now playing: %s".formatted(info.fileFormat().properties().getOrDefault("title", info.relativeFilePath())))
-                        .setStyle(Style.EMPTY.withColor(Formatting.GREEN)),
+                Text.of("Now playing: %s".formatted(info.fileFormat().properties().getOrDefault("title", info.relativeFilePath()))),
                 false
         );
     }
@@ -163,7 +162,7 @@ public class ServerSongPlayer implements NoteReceiver {
                 break;
             case 0x05: // Lyrics
                 for (ServerPlayerEntity player : players) {
-                    player.sendMessage(new LiteralText(new String(metaMessage.getData())), true);
+                    player.sendMessage(Text.of(new String(metaMessage.getData())), true);
                 }
                 break;
             case 0x06: // Marker
